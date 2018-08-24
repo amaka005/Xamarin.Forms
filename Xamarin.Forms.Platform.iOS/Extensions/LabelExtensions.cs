@@ -74,7 +74,9 @@ namespace Xamarin.Forms.Platform.MacOS
 
 				var yaxis = startRect.Top;
 				var lineHeights = new List<double>();
-				while (yaxis < endRect.Bottom)
+
+				while( (endRect.Bottom - yaxis) > 0.001 )
+				//while (yaxis < endRect.Bottom)
 				{
 					double lineHeight;
 					if (yaxis == startRect.Top) // First Line
@@ -93,7 +95,8 @@ namespace Xamarin.Forms.Platform.MacOS
 					yaxis += (float)lineHeight;
 				}
 
-				((ISpatialElement)span).Region = Region.FromLines(lineHeights.ToArray(), finalSize.Width, startRect.X, endRect.X, startRect.Top).Inflate(10);
+				((ISpatialElement)span).Region = Region.FromLines(lineHeights.ToArray(), finalSize.Width, startRect.X, endRect.X, startRect.Top)
+					.Inflate(10);
 
 				// update current location
 				currentLocation += length;
